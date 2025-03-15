@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video Downloader</h1>
+        
+        <div class="input-group">
+            <input type="text" id="videoUrl" placeholder="Masukkan URL video YouTube..." />
+            <button id="fetchBtn">Ambil Video</button>
+        </div>
+        
+        <div id="error" class="error"></div>
+        <div id="status" class="status"></div>
+        <div id="loader" class="loader"></div>
+        
+        <div id="videoInfo" class="video-info">
+            <div class="thumbnail">
+                <img id="thumbnail" src="" alt="thumbnail" />
+            </div>
+            <div class="details">
+                <h2 id="title"></h2>
+                <p id="author" class="author"></p>
+                <p id="duration"></p>
+            </div>
+        </div>
+        
+        <div id="downloadOptions" class="download-options">
+            <div class="format-group">
+                <h3>Video dengan Audio</h3>
+                <div id="videoFormats"></div>
+            </div>
+            
+            <div class="format-group">
+                <h3>Hanya Audio</h3>
+                <div id="audioFormats"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
