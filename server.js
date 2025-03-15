@@ -41,3 +41,36 @@ app.get('/api/info', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+app.get('/api/download', async (req, res) => {
+  try {
+    const { url, itag, title } = req.query;
+    
+    if (!url) {
+      return res.status(400).json({ error: 'URL video diperlukan' });
+    }
+
+    const info = await ytdl.getInfo(url);
+
+    const format = itag ? { itag: parseInt(itag) } : 'highest';
+    
+    const cleanTitle = (title || info.videoDetails.title).replace(/[^\w\s]/gi, '');
+    const contentType = itag ? 
+      info.formats.find(f => f.itag === parseInt(itag))?.mimeType || 'video/mp4' :
+      'video/mp4';
+    
+    res.header('Content-Disposition', `attachment; filename="${cleanTitle}.mp4"`);
+    res.header('Content-Type', contentType);
+    
+    ytdl(url, { quality: format })
+      .pipe(res);
+      
+  } catch (error) {
+    console.error('Error downloading video:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server berjalan di port ${PORT}`);
+});
